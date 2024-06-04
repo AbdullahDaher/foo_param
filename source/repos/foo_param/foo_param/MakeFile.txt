@@ -1,0 +1,13 @@
+FC = gfortran
+FFLAGS = -O2 -Wall -Wextra
+
+all: main test
+
+main: src/foo_param.f90 src/utils.f90 src/main.f90
+    $(FC) $(FFLAGS) -o main src/foo_param.f90 src/utils.f90 src/main.f90
+
+test: src/foo_param.f90 src/utils.f90 tests/test_volume.f90
+    $(FC) $(FFLAGS) -o test_volume src/foo_param.f90 src/utils.f90 tests/test_volume.f90
+
+clean:
+    rm -f main test_volume *.o *.mod
