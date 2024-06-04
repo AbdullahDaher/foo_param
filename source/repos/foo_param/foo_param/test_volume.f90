@@ -1,14 +1,14 @@
-program test_volume
+subroutine test_volume()
   use foo_param
   use utils
   implicit none
   logical :: is_valid
 
   ! Test with a positive radius
-  call assert_almost_equal(calculate_volume(1.0_8), 4.18, "Test 1")
+  call assert_almost_equal(calculate_volume(1.0_8), 4.188790204786391_8, "Test 1")
 
   ! Test with zero radius
-  call assert_almost_equal(calculate_volume(0.0_8), 0.0, "Test 2")
+  call assert_almost_equal(calculate_volume(0.0_8), 0.0_8, "Test 2")
 
   ! Test with negative radius (should be invalid)
   is_valid = validate_radius(-1.0_8)
@@ -19,10 +19,11 @@ program test_volume
   end if
 
 contains
+
   subroutine assert_almost_equal(actual, expected, test_name)
     real(kind=8), intent(in) :: actual, expected
     character(len=*), intent(in) :: test_name
-    real(kind=8), parameter :: tol = 1.0e-5
+    real(kind=8), parameter :: tol = 1.0e-5_8
 
     if (abs(actual - expected) < tol) then
       print *, test_name, "Passed"
@@ -31,4 +32,4 @@ contains
     end if
   end subroutine assert_almost_equal
 
-end program test_volume
+end subroutine test_volume
